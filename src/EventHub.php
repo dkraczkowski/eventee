@@ -6,7 +6,7 @@ use InvalidArgumentException;
 //@todo: event dispatcher
 class EventHub
 {
-    protected $listeners = [];
+    private $listeners = [];
 
     /**
      * Searches for all listeners observing the event and executes
