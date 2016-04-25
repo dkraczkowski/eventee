@@ -69,7 +69,7 @@ class EventDispatcherTest extends \PHPUnit_Framework_TestCase
         $hub = new EventDispatcher();
         $hub->addListener(Event::class, $cancelingListener);
         $hub->addListener(Event::class, $testListener);
-        $hub->dispatch(new Event());
+        self::assertFalse($hub->dispatch(new Event()));
 
         self::assertEquals(0, $testEventCalls);
     }
