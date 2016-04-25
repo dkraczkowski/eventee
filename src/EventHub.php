@@ -4,7 +4,7 @@ namespace Eventee;
 use InvalidArgumentException;
 
 //@todo: event dispatcher
-final class EventHub
+class EventHub
 {
     private $listeners = [];
 
