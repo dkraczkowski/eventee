@@ -5,9 +5,10 @@ class Event implements EventInterface
 {
     protected $backtree = [];
     private $stopped = false;
-
+    // @todo: constructor should accept caller
     public function execute(callable $listener)
     {
+        // @todo: move to event hub
         if ($this->isStopped()) {
             return false;
         }
