@@ -2,16 +2,16 @@
 namespace EventeeTest;
 
 use Eventee\Event;
-use Eventee\EventHub;
+use Eventee\EventDispatcher;
 
 use EventeeTest\Fixtures\BaseEvent;
 use EventeeTest\Fixtures\TestEvent;
 
-class EventHubTest extends \PHPUnit_Framework_TestCase
+class EventDispatcherTest extends \PHPUnit_Framework_TestCase
 {
     public function testCanListenToAnEvent()
     {
-        $hub = new EventHub();
+        $hub = new EventDispatcher();
         $listener = function(Event $e) {};
         $listener2 = function(Event $e) {};
 
@@ -36,7 +36,7 @@ class EventHubTest extends \PHPUnit_Framework_TestCase
     {
         $generalEventCalls = 0;
         $testEventCalls = 0;
-        $hub = new EventHub();
+        $hub = new EventDispatcher();
         $generalEventListener = function(Event $e) use(&$generalEventCalls) {
             ++$generalEventCalls;
         };
@@ -66,7 +66,7 @@ class EventHubTest extends \PHPUnit_Framework_TestCase
             ++$testEventCalls;
         };
 
-        $hub = new EventHub();
+        $hub = new EventDispatcher();
         $hub->addListener(Event::class, $cancelingListener);
         $hub->addListener(Event::class, $testListener);
         $hub->dispatch(new Event());

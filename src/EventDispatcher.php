@@ -3,8 +3,7 @@ namespace Eventee;
 
 use InvalidArgumentException;
 
-//@todo: event dispatcher
-class EventHub
+class EventDispatcher
 {
     private $listeners = [];
 
@@ -20,10 +19,10 @@ class EventHub
         foreach ($this->listeners as $className => $listenerList) {
             if ($event instanceof $className) {
                 foreach ($listenerList as $listener) {
-                    if ($event->execute($listener)) {
-                        continue;
+                    if ($event->isStopped()) {
+                        return false;
                     }
-                    return false;
+                    $event->execute($listener);
                 }
             }
         }
@@ -35,9 +34,9 @@ class EventHub
      * implements `Eventee\EventInterface`
      *
      * @param $event
-     * @param callable $callable
+     * @param callable $listener
      */
-    public function addListener($event, callable $callable)
+    public function addListener($event, callable $listener)
     {
         if (! is_a($event, EventInterface::class, true)) {
             throw new InvalidArgumentException(sprintf(
@@ -51,38 +50,31 @@ class EventHub
             $this->listeners[$event] = [];
         }
 
-        $this->listeners[$event][] = $callable;
+        $this->listeners[$event][$this->getListenerSignature($listener)] = $listener;
     }
 
-    public function removeListener($event, callable $callable)
+    public function removeListener($event, callable $listener)
     {
-        $index = $this->findListenerIndex($event, $callable);
-        if ($index === false) {
-            return false;
+        if ($this->hasListener($event, $listener)) {
+            unset($this->listeners[$event][$this->getListenerSignature($listener)]);
+            return true;
         }
-
-        array_splice($this->listeners[$event], $index, 1);
-        return true;
-    }
-
-    public function hasListener($event, callable $callable)
-    {
-        return $this->findListenerIndex($event, $callable) !== false;
-    }
-
-    private function findListenerIndex($event, callable $callable)
-    {
-        if (! isset($this->listeners[$event])) {
-            return false;
-        }
-
-        for ($i = 0, $l = count($this->listeners[$event]); $i < $l; $i++) {
-            $current = $this->listeners[$event][$i];
-            if ($current === $callable) {
-                return $i;
-            }
-        }
-
         return false;
+    }
+
+    public function hasListener($event, callable $listener)
+    {
+        return isset($this->listeners[$event][$this->getListenerSignature($listener)]);
+    }
+
+    private function getListenerSignature(callable $listener)
+    {
+        if (is_array($listener)) {
+            return join('.', $listener);
+        } elseif (is_string($listener)) {
+            return $listener;
+        } else {
+            return spl_object_hash((object) $listener);
+        }
     }
 }
