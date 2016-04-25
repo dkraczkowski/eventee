@@ -17,7 +17,7 @@ class EventHub
     public function dispatch(EventInterface $event)
     {
         foreach ($this->listeners as $className => $listenerList) {
-            if (is_subclass_of($event, $className) || $event instanceof $className) {
+            if ($event instanceof $className) {
                 foreach ($listenerList as $listener) {
                     if ($event->execute($listener)) {
                         continue;
@@ -38,7 +38,7 @@ class EventHub
      */
     public function addListener($event, callable $callable)
     {
-        if (! in_array(EventInterface::class, class_implements($event))) {
+        if (! is_a($event, EventInterface::class, true)) {
             throw new InvalidArgumentException(sprintf(
                 '%s::addListener passed $event argument must implement %s',
                 get_called_class(),
