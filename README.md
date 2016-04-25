@@ -41,8 +41,35 @@ class OnUserCreated extends Event
 
 $hub = new \Eventee\EventHub();
 $hub->addListener(OnUserCreated::class, function(OnUserCreated $e) {
-    echo sprintf('Hello world, %s!', $e->getUser();
+    echo sprintf('Hello world, %s!', $e->getUser());
 });
 $hub->dispatch(new OnUserCreated('John'));// Will echo 'Hello World, John!'
 ```
 
+## Stopping event from propagation
+
+```php
+$hub = new \Eventee\EventHub();
+$hub->addListener(\Eventee\Event::class, function(Event $e) {
+    $e->stop();
+    echo 'Hello ';
+});
+$hub->addListener(\Eventee\Event::class, function(Event $e) {
+    echo 'World';
+});
+$hub->dispatch(new \Eventee\Event());// Will echo 'Hello '
+```
+
+## Checking if listener is listening to an event
+
+```php
+$hub = new \Eventee\EventHub();
+$listener = function(Event $e) {
+    echo 'Hello ';
+}
+$hub->addListener(\Eventee\Event::class, $listener);
+
+if ($hub->hasListener(\Eventee\Event::class, $listener) {
+    echo 'Hello World!';
+}
+```
