@@ -73,4 +73,14 @@ class EventDispatcherTest extends \PHPUnit_Framework_TestCase
 
         self::assertEquals(0, $testEventCalls);
     }
+
+    public function testCanDispatchEventWithCaller()
+    {
+        $listenerWithCaller = function(Event $e) {
+            self::assertInstanceOf(EventDispatcherTest::class, $e->getCaller());
+        };
+        $hub = new EventDispatcher();
+        $hub->addListener(Event::class, $listenerWithCaller);
+        self::assertTrue($hub->dispatch(new Event($this)));
+    }
 }

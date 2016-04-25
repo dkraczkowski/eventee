@@ -25,4 +25,9 @@ class Event implements EventInterface
     {
         return $this->stopped;
     }
+
+    public function getCaller()
+    {
+        return $this->caller;
+    }
 }
