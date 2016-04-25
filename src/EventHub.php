@@ -3,6 +3,7 @@ namespace Eventee;
 
 use InvalidArgumentException;
 
+//@todo: event dispatcher
 class EventHub
 {
     protected $listeners = [];
