@@ -1,6 +1,6 @@
 {
   "name": "eventee/eventee",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Eventee is a minimalistic and powerfull event dispatching library for PHP",
   "keywords": ["event", "event-dispatcher", "event-emitter", "observer"],
   "license": "MIT",
