@@ -1,8 +1,24 @@
 # ![build status](https://travis-ci.org/dkraczkowski/eventee.svg?branch=master) Eventee
 Eventee is a minimalistic and powerfull event dispatching library for PHP.
 
+## TOC
+    - [Installation](#installation)
+    - [Listening to an event](#listening-to-an-event)
+    - [Dispatching an event](#dispatching-an-event)
+    - [Creating custom event](#creating-custom-event)
+    - [Stopping event from propagation](#stopping-event-from-propagation)
+    - [Checking if listener exists](#checking-if-listener-exists)
+    - [Removing listener](#removing-listener)
+
 ## Installation
-...
+
+Make sure you have composer installed. _(More information [here](https://getcomposer.org/doc/00-intro.md#installation-linux-unix-osx))_
+And your php version is >=php5.5.
+
+```
+composer require eventee\eventee
+```
+
 
 ## Listening to an event
 
@@ -19,10 +35,11 @@ $hub = new \Eventee\EventHub();
 $hub->addListener(\Eventee\Event::class, function() {
     echo 'Hello world!';
 });
-$hub->dispatch(new \Eventee\Event());// Will echo 'Hello World'
+// Will echo 'Hello World'.
+$hub->dispatch(new \Eventee\Event());
 ```
 
-## Creating a custom event
+## Creating custom event
 ```php
 class OnUserCreated extends Event
 {
@@ -43,7 +60,8 @@ $hub = new \Eventee\EventHub();
 $hub->addListener(OnUserCreated::class, function(OnUserCreated $e) {
     echo sprintf('Hello world, %s!', $e->getUser());
 });
-$hub->dispatch(new OnUserCreated('John'));// Will echo 'Hello World, John!'
+// Will echo 'Hello World, John!'.
+$hub->dispatch(new OnUserCreated('John'));
 ```
 
 ## Stopping event from propagation
@@ -57,10 +75,11 @@ $hub->addListener(\Eventee\Event::class, function(Event $e) {
 $hub->addListener(\Eventee\Event::class, function(Event $e) {
     echo 'World';
 });
-$hub->dispatch(new \Eventee\Event());// Will echo 'Hello '
+// Will echo 'Hello '.
+$hub->dispatch(new \Eventee\Event());
 ```
 
-## Checking if listener is listening to an event
+## Checking if listener exists
 
 ```php
 $hub = new \Eventee\EventHub();
@@ -69,7 +88,27 @@ $listener = function(Event $e) {
 }
 $hub->addListener(\Eventee\Event::class, $listener);
 
+// Will echo 'Hello world!'
 if ($hub->hasListener(\Eventee\Event::class, $listener) {
     echo 'Hello World!';
 }
 ```
+
+## Removing listener
+
+```php
+$hub = new \Eventee\EventHub();
+$listener = function(Event $e) {
+    echo 'Hello ';
+}
+$hub->addListener(\Eventee\Event::class, $listener);
+
+$hub->removeListener(\Eventee\Event::class, $listener);
+
+// No output this time.
+if ($hub->hasListener(\Eventee\Event::class, $listener) {
+    echo 'Hello World!';
+}
+```
+
+
