@@ -18,7 +18,7 @@ Eventee is a minimalistic and powerfull event dispatching library for PHP.
 Make sure you have composer installed _(More information [here](https://getcomposer.org/doc/00-intro.md#installation-linux-unix-osx))_. And your php version is >= PHP 5.5.
 
 ```
-composer require eventee\eventee
+composer require eventee/eventee
 ```
 
 
