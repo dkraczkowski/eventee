@@ -3,13 +3,13 @@ Eventee is a minimalistic and powerfull event dispatching library for PHP.
 
 ## TOC
 
-#####[Installation](#installation)
-#####[Listening to an event](#listening-to-an-event)
-#####[Dispatching an event](#dispatching-an-event)
-#####[Creating custom event](#creating-custom-event)
-#####[Stopping event from propagation](#stopping-event-from-propagation)
-#####[Checking if listener exists](#checking-if-listener-exists)
-#####[Removing listener](#removing-listener)
+- [`Installation`](#installation)
+- [`Listening to an event`](#listening-to-an-event)
+- [`Dispatching an event`](#dispatching-an-event)
+- [`Creating custom event`](#creating-custom-event)
+- [`Stopping event from propagation`](#stopping-event-from-propagation)
+- [`Checking if listener exists`](#checking-if-listener-exists)
+- [`Removing listener`](#removing-listener)
 
 
 ## Installation
