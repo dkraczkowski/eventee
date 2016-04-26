@@ -1,4 +1,4 @@
-# Eventee [![build status](https://travis-ci.org/dkraczkowski/eventee.svg?branch=master)](https://travis-ci.org/dkraczkowski/eventee)[![License](https://poser.pugx.org/eventee/eventee/license.svg)](https://packagist.org/packages/eventee/eventee)
+# Eventee [![build status](https://travis-ci.org/dkraczkowski/eventee.svg?branch=master)](https://travis-ci.org/dkraczkowski/eventee) [![License](https://poser.pugx.org/eventee/eventee/license.svg)](https://packagist.org/packages/eventee/eventee)
 
 Eventee is a minimalistic and powerfull event dispatching library for PHP.
 
