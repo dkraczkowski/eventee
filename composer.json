@@ -1,5 +1,5 @@
 {
-  "name": "dkraczkowski/eventee",
+  "name": "eventee/eventee",
   "description": "Eventee is a minimalistic and powerfull event dispatching library for PHP",
   "keywords": ["event", "event-dispatcher", "event-emitter", "observer"],
   "license": "MIT",
