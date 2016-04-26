@@ -1,4 +1,4 @@
-# Eventee
+# ![build status](https://travis-ci.org/dkraczkowski/eventee.svg?branch=master) Eventee
 Eventee is a minimalistic and powerfull event dispatching library for PHP.
 
 ## Installation
